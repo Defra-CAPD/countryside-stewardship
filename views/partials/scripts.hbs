@@ -1,0 +1,104 @@
+{{#if prismScript}}
+<script src="/assets/javascripts/vendor/prism.js"></script>
+{{/if}}
+
+<script src="/assets/govuk/javascripts/govuk-template.js"></script>
+<script src="/assets/javascripts/vendor/jquery-1.11.0.js"></script>
+
+<!-- govuk frontend toolkit js -->
+<script src="/assets/govuk/javascripts/vendor/polyfills/bind.js"></script>
+<script src="/assets/govuk/javascripts/govuk/selection-buttons.js"></script>
+
+<!-- govuk elements js -->
+<script src="/assets/javascripts/vendor/details.polyfill.js"></script>
+
+<!-- custom js -->
+{{#unless angularScripts}}
+<script src="/assets/javascripts/main.js"></script>
+{{/unless}}
+
+{{#if eligible}}
+<script>
+  
+  
+  // Are you eligible?
+
+  $(function() {
+
+       
+    $('input[type=submit]').on('click', function() {
+      
+      
+      var $radiosQty     = $("input[type=radio][value='Yes']").length, 
+          $radiosChecked = $("input[type=radio][value='Yes']:checked").length;
+      
+
+      if ($radiosChecked === $radiosQty) {        
+        
+        window.location.href = '/eligibility/eligible/';      
+        
+      } else {        
+        
+        window.location.href = '/eligibility/noteligible/';       
+        
+      }
+      
+      
+      return false;
+            
+      
+    });
+       
+    
+  });
+  
+
+</script>
+{{/if}}
+
+
+{{#if terms}}
+<script>
+  
+  
+  // Have you accepted terms and conditions?
+
+  $(function() {
+
+
+    var form     = $('#form-terms'),
+        button   = form.find('.button'),
+        checkbox = form.find('input:checkbox');
+    
+    
+    // Initially disable the submit button
+    
+    button.attr('disabled', true);
+    
+    
+    // Change submit button disabled state
+    
+    $('#checkbox-terms-and-conditions').change(function () {
+      
+      if ($(this).is(':checked')) {
+        
+        button.attr('disabled', false);
+        
+      } else {
+        
+        button.attr('disabled', true);
+        
+      }      
+        
+    });
+       
+    
+  });
+  
+
+</script>
+{{/if}}
+
+
+<!-- grunt live reload -->
+<script src="//localhost:35729/livereload.js"></script>
